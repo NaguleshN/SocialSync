@@ -38,9 +38,13 @@ def create_profile(request):
     return render(request, 'profile/create_profile.html')
 
 @login_required
-def view_profile(request):
-    profile_info = Profile.objects.get(user=request.user)
-    print(profile_info)
+def view_profile(request,id):
+    if id == 0:
+        profile_info = Profile.objects.get(user=request.user)
+        # print(profile_info)
+        return render(request, 'profile/view_profile.html',{"profile_info":profile_info})
+    profile_info =  Profile.objects.get(pk=id)
+    # print(profile_info)
     return render(request, 'profile/view_profile.html',{"profile_info":profile_info})
 
 @login_required
@@ -62,6 +66,7 @@ def edit_profile(request):
         bio = request.POST.get("bio")
         print(username,email,date_of_birth,gender,about,bio)
         Profile.objects.create(user=request.user,username=username,bio=bio,email=email,date_of_birth=date_of_birth,gender=gender,about=about )
+        # Follower.objects.create(user=request.user)
         return redirect("view_profile")
     profile_info = Profile.objects.get(user=request.user)
     return render(request, "profile/edit_profile.html",{"profile_info":profile_info})
@@ -69,3 +74,37 @@ def edit_profile(request):
 @login_required
 def chat(request):
     return render(request, 'chat/messaging.html')
+
+
+@login_required
+def search_user(request):
+    profiles = Profile.objects.exclude(user=request.user)
+    return render(request, 'users/users.html',{"profiles":profiles})
+
+@login_required
+def follow(request,id):
+    profile= Profile.objects.get(pk=id)
+    profile.followers.add(request.user)
+    profile.save()
+    
+    profile_user= Profile.objects.get(user=request.user)
+    profile_user.following.add(request.user)
+    profile_user.save()
+    
+    # followers= Follower.objects.get(user=profile_user)
+    # followers.followers.add(profile_user)
+    return redirect("search_user")
+
+@login_required
+def unfollow(request,id):
+    profile= Profile.objects.get(pk=id)
+    profile.followers.remove(request.user)
+    profile.save()
+    
+    profile_user= Profile.objects.get(user=request.user)
+    profile_user.following.remove(request.user)
+    profile_user.save()
+    
+    # followers= Follower.objects.get(user=profile_user)
+    # followers.followers.add(profile_user)
+    return redirect("search_user")

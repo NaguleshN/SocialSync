@@ -1,0 +1,51 @@
+{% extends 'social_app/base.html' %}
+{% block content %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const profileName = card.querySelector('.card-title').textContent.toLowerCase();
+                if (profileName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+<div class="mb-3">
+    <form class="form-inline">
+        <input class="form-control mr-sm-2 px-3" id="searchInput" type="search" placeholder="Search User" aria-label="Search">
+    </form>   
+</div>
+
+<div class="row row-cols-1 row-cols-md-4 g-4" id="productList">
+    {% for profile in profiles reversed %}
+    <div class="col product-card">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title"> {{profile.username}} </h5>
+          <p class="card-text">Joined at:  {{profile.created_at}}</p>
+          <p class="card-text">Followers:  {{profile.followers.all.count}}</p>
+              {% csrf_token %}
+            <input type="number" class="form-control" value="{{profile.id}}" name="profile_id" hidden>
+            <div class="input-group">
+                {% if request.user in profile.followers.all %}
+                <a class="btn btn-outline-danger" type="button" href="{% url 'unfollow' profile.id %}" >unfollow</a>
+                {% else %}
+                <a class="btn btn-outline-success" type="button" href="{% url 'follow' profile.id %}" >follow</a>
+                {% endif %}
+            </div> 
+            <a class="btn btn-outline-primary mt-2" type="submit" href="{% url 'view_profile' profile.id %}">VIEW PROFILE</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+{% endblock%}
