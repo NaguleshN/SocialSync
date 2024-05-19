@@ -1,0 +1,79 @@
+{% extends 'social_app/base.html' %}
+{% block content %}
+<script>
+    function updateForm() {
+        const formType = document.getElementById('formType').value;
+        const dynamicFields = document.getElementById('dynamicFields');
+        dynamicFields.innerHTML = '';
+
+        if (formType === 'image') {
+            dynamicFields.innerHTML = `
+            <div class="mb-3">
+                <label for="content" class="form-label">Post Description</label>
+                <textarea class="form-control" id="content" rows="3" name="description" required></textarea>
+            </div>
+            <label for="title" class="form-label">Hastag</label><br>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">#</div>
+                </div>
+                <input type="text" class="form-control" id="title" name="hashtag" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="image" class="form-label">Post Image</label>
+                <input type="file" class="form-control" id="image" name="image" accept=".jpg, .jpeg, .png">
+            </div>
+            <button type="submit" name="image" class="btn btn-primary">Submit</button>
+            `;
+        } else if (formType === 'text') {
+            dynamicFields.innerHTML = `
+            <div class="mb-3">
+                <label for="content" class="form-label">Post Description</label>
+                <textarea class="form-control" id="content" name="description" rows="3" required></textarea>
+            </div>
+            
+            <label for="title" class="form-label">Hastag</label><br>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">#</div>
+                </div>
+                <input type="text" class="form-control" id="title" name="hashtag" required>
+            </div>
+
+            <button type="submit" name="text" class="btn btn-primary">Submit</button>
+            `;
+        } 
+    }
+</script>
+
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">Create a Post</div>
+                    <div class="card-body">
+                        {% comment %} <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">Note:</h4>
+                            <p>1.Select either image or .</p>
+                        </div> {% endcomment %}
+                        <div class="mb-3">
+                            <label for="formType" class="form-label">Select Post Type</label>
+                            <select class="form-select" id="formType" name="formType" onchange="updateForm()" required>
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="image">Image post</option>
+                                <option value="text">Text post</option>
+                            </select>
+                        </div>
+                        <form id="formType" method="POST" action="{% url 'create_post' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div id="dynamicFields"></div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

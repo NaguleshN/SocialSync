@@ -25,13 +25,18 @@
           <div class="row justify-content-center mx-5">
             <div class="col-xl-5 col-md-8 mx-5">
 
-              <form  method="POST" class="bg-white rounded shadow-5-strong p-5" action="{% url 'create_profile' %}">
+              <form  method="POST" class="bg-white rounded shadow-5-strong p-5" action="{% url 'create_profile' %}" enctype="multipart/form-data">
                 <h3 class="text-center mb-4">Edit Profile</h3>
                 {% csrf_token %}
                 <div class="form-outline mb-4" data-mdb-input-init>
                     <label class="form-label" for="form1Example1">Username</label>
                   <input name="username" type="text" id="form1Example1" class="form-control" placeholder="Enter the username"/>
                 </div>
+
+                <div class="form-outline mb-4" data-mdb-input-init>
+                  <label class="form-label" for="pic">Profile picture</label>
+                  <input name="pic" type="file" id="pic" class="form-control" accept=".jpg, .jpeg, .png">
+              </div>
 
                 <div class="form-outline mb-4" data-mdb-input-init>
                     <label class="form-label" for="form1Example1">Email address</label>
@@ -44,7 +49,7 @@
                 </div>
 
                 <div class="form-outline mb-4" data-mdb-input-init>
-                    <label class="form-label" for="gender"> Gender *</label>
+                    <label class="form-label" for="gender"> Gender </label>
                     <select name="gender" id="gender">
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>

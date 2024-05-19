@@ -5,3 +5,4 @@ from social_app.models import *
 
 admin.site.register(Message)
 admin.site.register(Profile)
+admin.site.register(ImagePost)

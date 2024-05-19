@@ -1,0 +1,212 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style>
+
+    body{
+        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+        margin-top: 3%;
+        padding: 3%;
+    }
+    .register-left{
+        text-align: center;
+        color: #fff;
+        margin-top: 4%;
+    }
+    .register-left input{
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        width: 60%;
+        background: #f8f9fa;
+        font-weight: bold;
+        color: #383d41;
+        margin-top: 30%;
+        margin-bottom: 3%;
+        cursor: pointer;
+    }
+    .register-right{
+        background: #f8f9fa;
+        border-top-left-radius: 10% 50%;
+        border-bottom-left-radius: 10% 50%;
+    }
+    .register-left img{
+        margin-top: 15%;
+        margin-bottom: 5%;
+        width: 25%;
+        -webkit-animation: mover 2s infinite  alternate;
+        animation: mover 1s infinite  alternate;
+    }
+    @-webkit-keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-20px); }
+    }
+    @keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-20px); }
+    }
+    .register-left p{
+        font-weight: lighter;
+        padding: 12%;
+        margin-top: -9%;
+    }
+    .register .register-form{
+        padding: 10%;
+        margin-top: 10%;
+    }
+    .btnRegister{
+        float: right;
+        margin-top: 10%;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        background: #0062cc;
+        color: #fff;
+        font-weight: 600;
+        width: 50%;
+        cursor: pointer;
+    }
+    .register .nav-tabs{
+        margin-top: 3%;
+        border: none;
+        background: #0062cc;
+        border-radius: 1.5rem;
+        width: 28%;
+        float: right;
+    }
+    .register .nav-tabs .nav-link{
+        padding: 2%;
+        height: 34px;
+        font-weight: 600;
+        color: #fff;
+        border-top-right-radius: 1.5rem;
+        border-bottom-right-radius: 1.5rem;
+    }
+    .register .nav-tabs .nav-link:hover{
+        border: none;
+    }
+    .register .nav-tabs .nav-link.active{
+        width: 100px;
+        color: #0062cc;
+        border: 2px solid #0062cc;
+        border-top-left-radius: 1.5rem;
+        border-bottom-left-radius: 1.5rem;
+    }
+    .register-heading{
+        text-align: center;
+        margin-top: 8%;
+        margin-bottom: -15%;
+        color: #495057;
+    }
+</style>
+<body>
+    <div class="container register">
+        <div class="row">
+            <div class="col-lg-3 register-left mb-4">
+               
+                <h3 class="mt-5">Welcome to SocialSync</h3>
+                <p>You are in creation of profile.Make it  soon!</p>
+            </div>
+            <div class="col-md-9 register-right">
+                <form method="post" enctype="multipart/form-data">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Edit profile</h3>
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="username" placeholder="Username *" value="{{ profile_info.username }}" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="email" placeholder="Email address *" value="{{ profile_info.email }}" />
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="bio" id="bio" class="form-control">{{ profile_info.bio }}</textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="maxl">
+                                        <label class="radio inline"> 
+                                            <input type="radio" name="gender" value="Male"  {% if profile_info.gender == "Male" %} checked {% endif %}>
+                                            <span> Male </span> 
+                                        </label>
+                                        <label class="radio inline"> 
+                                            <input type="radio" name="gender" value="Female"
+                                            {% if profile_info.gender == "Female" %} checked {% endif %}>
+                                            <span>Female </span> 
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input name="dob" type="date" id="dob" max="2010-05-26" class="form-control" placeholder="Date of birth *" value="{{ profile_info.date_of_birth|date:'Y-m-d' }}" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="about" class="form-control" placeholder="About you *" value="{{ profile_info.about }}" />
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="pic">Profile picture</label>
+                                    <input name="pic" type="file" id="pic" class="form-control" accept=".jpg, .jpeg, .png">
+                                {% if profile_info.profile_picture %}
+                                    <img src="{{ profile_info.profile_picture.url }}" alt="Profile Picture" class="profile-picture" height="100" width="100">
+                                {% else %}
+                                    <img alt="Profile Picture" class="profile-picture">
+                                {% endif %}
+                                </div>
+                                <input type="submit" class="btnRegister"  value="Update"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                    {% comment %} <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <h3  class="register-heading">Apply as a Hirer</h3>
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="First Name *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control">
+                                        <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                        <option>What is your Birthdate?</option>
+                                        <option>What is Your old Phone Number</option>
+                                        <option>What is your Pet Name?</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="`Answer *" value="" />
+                                </div>
+                                <input type="submit" class="btnRegister"  value="Register"/>
+                            </div>
+                        </div>
+                    </div>
+                    {% endcomment %}
+                </div> 
+            </div>
+        </div>
+    </div>
+</body>

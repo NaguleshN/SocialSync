@@ -38,6 +38,7 @@ CSRF_TRUSTED_ORIGINS = ['http://*', 'https://*']
 SITE_ID = 2
 
 INSTALLED_APPS = [
+    'daphne' , 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,7 +47,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_app',
     'social_django',#social auth
+    # add django daphne
+    # add django channels
+    'channels' ,
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google' : {
@@ -158,3 +169,6 @@ LOGOUT_REDIRECT_URL ="login"
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =  os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
