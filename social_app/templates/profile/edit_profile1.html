@@ -103,7 +103,7 @@
 <body>
     <div class="container register">
         <div class="row">
-            <div class="col-lg-3 register-left mb-4">
+            <div class="col-lg-3 register-left mb-5">
                
                 <h3 class="mt-5">Welcome to SocialSync</h3>
                 <p>You are in creation of profile.Make it  soon!</p>
@@ -120,8 +120,7 @@
                                     <input type="text" class="form-control" name="username" placeholder="Username *" value="{{ profile_info.username }}" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="email" placeholder="Email address *" value="{{ profile_info.email }}" />
-                                    
+                                    <input type="text" class="form-control" name="email" placeholder="Email address *" value="{{ profile_info.user.email }}" disabled/>
                                 </div>
                                 <div class="form-group">
                                     <textarea name="bio" id="bio" class="form-control">{{ profile_info.bio }}</textarea>
@@ -163,48 +162,6 @@
                         </div>
                     </div>
                 </form>
-                    {% comment %} <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <h3  class="register-heading">Apply as a Hirer</h3>
-                        <div class="row register-form">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="First Name *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" maxlength="10" minlength="10" class="form-control" placeholder="Phone *" value="" />
-                                </div>
-
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
-                                </div>
-                                <div class="form-group">
-                                    <select class="form-control">
-                                        <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
-                                        <option>What is your Birthdate?</option>
-                                        <option>What is Your old Phone Number</option>
-                                        <option>What is your Pet Name?</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="`Answer *" value="" />
-                                </div>
-                                <input type="submit" class="btnRegister"  value="Register"/>
-                            </div>
-                        </div>
-                    </div>
-                    {% endcomment %}
                 </div> 
             </div>
         </div>

@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.home , name='home'),
     path('message/', views.message, name='message'),
-    path('chat/', views.chat, name='chat'),
+    path('chat/<str:request_username>', views.chat, name='chat'),
     path('login/', views.login , name='login'),
     path('logout/',views.user_logout, name="logout"),
     path('create_profile/', views.create_profile, name='create_profile'),
@@ -17,6 +17,8 @@ urlpatterns = [
     path('view_profile/<int:id>', views.view_profile, name='view_profile'),
     path('search_user/', views.search_user, name='search_user'),
     path('follow/<int:id>',views.follow ,name='follow'),
+    path('image_likes/<int:id>',views.image_likes ,name='image_likes'),
+    path('text_likes/<int:id>',views.text_likes ,name='text_likes'),
     path('unfollow/<int:id>',views.unfollow ,name='unfollow'),
     path('create_post',views.create_post ,name='create_post')
 ]

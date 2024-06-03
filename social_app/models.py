@@ -26,9 +26,10 @@ class Profile(models.Model):
         return self.user.username
     
 class Message(models.Model):
-    from_user =models.OneToOneField(User,related_name="sender",on_delete=models.CASCADE)
-    to_user = models.OneToOneField(User,related_name="reciever",on_delete=models.CASCADE)
+    from_user =models.ForeignKey(User,related_name="sender",on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User,related_name="reciever",on_delete=models.CASCADE)
     message_text =models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now=True)
 
 class ImagePost(models.Model):
     user = models.ForeignKey(User,related_name="image_post_user",on_delete=models.CASCADE)

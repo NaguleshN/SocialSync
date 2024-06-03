@@ -1,7 +1,7 @@
 {% extends 'social_app/base.html' %}
 {% block content %}
 
-<h4>Feeds</h4>
+<h4 style="margin-left:100px; margin-bottom:25px">Feeds</h4>
     <div class="container">
       <div class="row row-cols-1 row-cols-md-3 g-4 mx-2 mb-3">
 
@@ -14,14 +14,12 @@
                     {{profile.username}}
                   {% endif %}
                 {% endfor %}
-
               </h6>
-              
               <img {% if post.post_picture %} 
                       src= "{{ post.post_picture.url }}" 
                   {% else %}
                       src= "https://www.contentviewspro.com/wp-content/uploads/2017/07/default_image.png" 
-                  {% endif%}
+                  {% endif %}
               class="card-img-top"
                 alt="Hollywood Sign on The Hill" />
               <div class="card-body">
@@ -31,7 +29,12 @@
                     </p>
                     {{post.created_at}}
                   </div>
-                  <a href="#" class="btn btn-outline-dark btn-sm">Like {{post.likes.all.count}}</a>
+                  {% if request.user in post.likes.all %}
+                  <a onclick="alert('dont try login twice')" class="btn btn-outline-dark btn-sm btn-outline-danger" disabled>Liked {{post.likes.all.count}}</a>
+                  {% else %}
+                  <a href="{% url 'image_likes' post.id %}" class="btn btn-outline-dark btn-sm">Liked {{post.likes.all.count}}</a>
+                  {% endif %}
+
           </div>
       </div>
       {% endfor %}
@@ -53,7 +56,11 @@
                     </p>
                     {{post.created_at}}
                   </div>
-                  <a href="#" class="btn btn-outline-dark btn-sm">Like {{post.likes.all.count}}</a>
+                  {% if request.user in post.likes.all %}
+                  <a onclick="alert('dont try login twice')" class="btn btn-outline-dark btn-sm btn-outline-danger" disabled>Liked {{post.likes.all.count}}</a>
+                  {% else %}
+                  <a href="{% url 'text_likes' post.id %}" class="btn btn-outline-dark btn-sm">Liked {{post.likes.all.count}}</a>
+                  {% endif %}
           </div>
       </div>
       {% endfor %}

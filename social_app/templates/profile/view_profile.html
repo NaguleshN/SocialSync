@@ -9,6 +9,7 @@
                 <div class="card">
                     <div class="rounded-top text-white d-flex flex-row" style="background-color: #567; height: 200px;">
                         <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+
                             <img {% if profile_info.profile_picture %}
                                 src="{{ profile_info.profile_picture.url }}"
                             {% else %}
@@ -22,13 +23,13 @@
 
               <div class="ms-3" style="margin-top: 120px;">
                 <h5>{{profile_info.username}}</h5>
-                <p>{{profile_info.email}}</p>
+                <p>{{profile_info.user.email}}</p>
               </div>
               <div class="p-5 text-blak" style="margin-left:250px; margin-top:30px; color:#ffff;">
                   <div class="d-flex justify-content-end text-center py-3 text-body" >
                 <div class="" style="color:#ffff;">
-                  <p class="mb-1 h5">253</p>
-                  <p class="small  mb-0">Posts</p>
+                  <p class="mb-1 h5">{{count}}</p>
+                  <p class="small  mb-0">Img Posts</p>
                 </div>
                 <div class="px-3" style="color:#ffff;">
                   <p class="mb-1 h5">{{profile_info.followers.all.count}}</p>

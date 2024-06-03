@@ -31,8 +31,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['http://*', 'https://*']
-
+CSRF_TRUSTED_ORIGINS = ['http://*','https://3f39-2401-4900-2316-a435-a0b5-6f06-8e17-b058.ngrok-free.app', 'https://0bd6-2402-3a80-4580-e731-415e-a736-5dc9-a64e.ngrok-free.app']
+    
 # Application definition
 
 SITE_ID = 2
